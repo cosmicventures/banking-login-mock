@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Banco Santander",
+    "colors": {
+      "primary": "#EC0000",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "BBVA",
+    "colors": {
+      "primary": "#003399",
+      "secondary": "#00AEEF"
+    }
+  },
+  {
+    "name": "CaixaBank",
+    "colors": {
+      "primary": "#004F94",
+      "secondary": "#FF9900"
+    }
+  },
+  {
+    "name": "Bankia",
+    "colors": {
+      "primary": "#76A800",
+      "secondary": "#000000"
+    }
+  },
+  {
+    "name": "Banco Sabadell",
+    "colors": {
+      "primary": "#0079C1",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Bankinter",
+    "colors": {
+      "primary": "#F05A28",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Kutxabank",
+    "colors": {
+      "primary": "#EA1D25",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Unicaja Banco",
+    "colors": {
+      "primary": "#009B77",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Liberbank",
+    "colors": {
+      "primary": "#72C346",
+      "secondary": "#004990"
+    }
+  },
+  {
+    "name": "Abanca",
+    "colors": {
+      "primary": "#0071BC",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "ING",
+    "colors": {
+      "primary": "#FF6200",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Deutsche Bank",
+    "colors": {
+      "primary": "#002244",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "HSBC",
+    "colors": {
+      "primary": "#DB0011",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "BNP Paribas",
+    "colors": {
+      "primary": "#008D46",
+      "secondary": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Barclays",
+    "colors": {
+      "primary": "#00AEEF",
+      "secondary": "#FFFFFF"
+    }
+  }
+]
