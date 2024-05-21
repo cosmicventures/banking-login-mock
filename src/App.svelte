@@ -36,12 +36,7 @@
 
   let page: "login" | "account-selection" = "login";
 
-  function setPage(newPage: "login" | "account-selection") {
-    page = newPage;
-  }
-
   $: {
-    const urlParams = new URLSearchParams(window.location.search);
     const path = window.location.pathname;
     if (path.includes("account-selection")) {
       page = "account-selection";

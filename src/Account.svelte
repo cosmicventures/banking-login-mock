@@ -11,7 +11,7 @@
   };
 </script>
 
-<div class="flex items-center justify-between">
+<div class="flex items-center justify-between border rounded-md p-2">
   <div class="flex items-center gap-2">
     <Checkbox
       class="bg-white"

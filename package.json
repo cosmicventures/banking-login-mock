@@ -20,8 +20,8 @@
     "vite": "^5.2.0"
   },
   "dependencies": {
-    "@internationalized/date": "^3.5.3",
-    "bits-ui": "^0.21.7",
+    "@internationalized/date": "^3.5.4",
+    "bits-ui": "^0.21.9",
     "clsx": "^2.1.1",
     "lucide-svelte": "^0.378.0",
     "svelte-flatpickr": "^3.3.4",
