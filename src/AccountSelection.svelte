@@ -12,8 +12,15 @@
   import { Checkbox } from "$lib/components/ui/checkbox";
   import { Button } from "$lib/components/ui/button";
   import { DateFormatter, type DateValue } from "@internationalized/date";
-  import Account from "./Account.svelte";
   import { writable } from "svelte/store";
+  import Account from "./Account.svelte";
+  import {
+    batchRegisterBankAccounts,
+    getBankAccounts,
+    type Account as AccountType,
+  } from "./services/open-banking";
+  import App from "./App.svelte";
+  import { formattedAmount } from "$lib/utils";
 
   export let textColor: string;
   export let primaryColor: string;
@@ -21,35 +28,51 @@
   export let redirectUrl: string;
   export let bankLogo: string;
 
-  const accounts = writable([
-    {
-      iban: "DE12345678901234567890",
-      balance: "€ 1,234.56",
-      selected: false,
-      name: "Checking Account",
-    },
-    {
-      iban: "DE09876543210987654321",
-      balance: "€ 9,876.54",
-      selected: false,
-      name: "Savings Account",
-    },
-  ]);
+  type AccountSelection = AccountType & { selected: boolean };
 
-  onMount(() => {
+  const accounts = writable<AccountSelection[]>([]);
+
+  onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     bankName = params.get("bank") || "default";
     redirectUrl =
       params.get("redirect_url") || "http://yourwebsite.com/redirect_url";
+
+    const bankAccounts = await getBankAccounts();
+    accounts.set(
+      bankAccounts.map((account) => ({ ...account, selected: false }))
+    );
   });
 
-  function handleSubmit(event: Event) {
+  async function handleSubmit(event: Event) {
     event.preventDefault();
     const selectedAccounts = $accounts
       .filter((account) => account.selected)
-      .map((account) => account.iban);
+      .map((account) => account.id);
 
-    const status = selectedAccounts.length ? "success" : "error";
+    let status: string;
+    try {
+      await batchRegisterBankAccounts(
+        selectedAccounts.map((acc) => {
+          const account = $accounts.find((a) => a.id === acc);
+          if (!account) {
+            throw new Error("Account not found");
+          }
+          return {
+            accountName: account.nickname,
+            accountNumber:
+              account.accountIdentifications.find(
+                (id) => id.type === "ACCOUNT_NUMBER"
+              )?.identification ?? "",
+            bankName: bankName,
+            openBankingId: account.id,
+          };
+        })
+      );
+      status = "success";
+    } catch (error) {
+      status = "error";
+    }
 
     const redirectWithParams = `${redirectUrl}?status=${status}`;
 
@@ -100,7 +123,15 @@
         </div>
         {#each $accounts as account, index}
           <Account
-            {account}
+            account={{
+              balance: formattedAmount(account.balance, account.currency),
+              iban:
+                account.accountIdentifications.find(
+                  (id) => id.type === "ACCOUNT_NUMBER"
+                )?.identification ?? "",
+              name: account.nickname,
+              selected: account.selected,
+            }}
             handleCheckboxChange={(state) =>
               toggleAccountSelection(index, state)}
           />

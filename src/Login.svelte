@@ -29,12 +29,10 @@
       <CardHeader class="flex flex-col items-center">
         <img
           alt="Bank Logo"
-          class="rounded-full"
-          src="https://imgs.search.brave.com/c2k6Jrbpq2vg5bEnIYk18lx5in9s7KG-RZnSAOiSrQU/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy82/MDk1MWVmNjUzYThi/ZjAwMDQwZmYzYTAu/cG5n"
+          src={bankLogo}
           style="object-fit: cover; width: 60%;"
         />
-        <CardTitle class="text-2xl mt-4">Login</CardTitle>
-        <CardDescription
+        <CardDescription class="pt-6"
           >Enter your credentials to access your account.</CardDescription
         >
       </CardHeader>

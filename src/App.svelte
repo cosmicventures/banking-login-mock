@@ -2,6 +2,8 @@
   import Login from "./Login.svelte";
   import AccountSelection from "./AccountSelection.svelte";
   import banks from "./banks.json";
+  import { getBankInstitutions } from "./services/open-banking";
+  import { onMount } from "svelte";
 
   function getContrast(hexcolor: string): string {
     hexcolor = hexcolor.replace("#", "");
@@ -32,6 +34,15 @@
 
   const bank = banks.find((bank) => bank.name === urlBank) ?? defaultBank;
 
+  let bankLogo: string;
+
+  onMount(async () => {
+    const institutions = await getBankInstitutions(urlBank);
+    bankLogo =
+      institutions.media.find((media) => media.type === "logo")?.source ??
+      "/placeholder.png";
+  });
+
   const [primaryColor, textColor] = getColors(bank.colors.primary);
 
   let page: "login" | "account-selection" = "login";
@@ -49,7 +60,7 @@
 <main>
   {#if page === "login"}
     <Login
-      bankLogo={"/bank-test.svg"}
+      {bankLogo}
       bankName={bank.name}
       {primaryColor}
       {redirectUrl}
@@ -57,7 +68,7 @@
     />
   {:else if page === "account-selection"}
     <AccountSelection
-      bankLogo={"/bank-test.svg"}
+      {bankLogo}
       bankName={bank.name}
       {primaryColor}
       {redirectUrl}
